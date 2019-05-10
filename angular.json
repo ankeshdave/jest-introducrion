@@ -130,6 +130,134 @@
           }
         }
       }
+    },
+    "jest-app": {
+      "root": "projects/jest-app/",
+      "sourceRoot": "projects/jest-app/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/jest-app",
+            "index": "projects/jest-app/src/index.html",
+            "main": "projects/jest-app/src/main.ts",
+            "polyfills": "projects/jest-app/src/polyfills.ts",
+            "tsConfig": "projects/jest-app/tsconfig.app.json",
+            "assets": [
+              "projects/jest-app/src/favicon.ico",
+              "projects/jest-app/src/assets"
+            ],
+            "styles": [
+              "projects/jest-app/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/jest-app/src/environments/environment.ts",
+                  "with": "projects/jest-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "jest-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "jest-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "jest-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/jest-app/src/test.ts",
+            "polyfills": "projects/jest-app/src/polyfills.ts",
+            "tsConfig": "projects/jest-app/tsconfig.spec.json",
+            "karmaConfig": "projects/jest-app/karma.conf.js",
+            "styles": [
+              "projects/jest-app/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/jest-app/src/favicon.ico",
+              "projects/jest-app/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/jest-app/tsconfig.app.json",
+              "projects/jest-app/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "jest-app-e2e": {
+      "root": "projects/jest-app-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/jest-app-e2e/protractor.conf.js",
+            "devServerTarget": "jest-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "jest-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/jest-app-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "jest-introduction"
